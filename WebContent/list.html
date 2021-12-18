@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Frutas ({{frutas.length}})</h2>
+	<ul>
+		<li ng-repeat="fruta in frutas">
+			<a href="#/edit/{{fruta}}">{{fruta}}</a>
+		</li>
+	</ul>
+	<a href="#/new">Nova</a>
+</body>
+</html>

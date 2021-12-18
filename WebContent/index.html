@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="resources/script/angular.min.js"></script>
+<script type="text/javascript" src="resources/script/angular-route.js"></script>
 <script type="text/javascript" src="resources/script/primeiroController.js"></script>
 </head>
 <body ng-controller="primeiroController as user" id="corpo">
@@ -24,5 +25,18 @@
 	<ul>
 		<li ng-repeat="nome in pessoas">{{nome}}</li>
 	</ul>
+	
+	<form action="" name="nossoForm">
+		<input type="text" name="nome" id="nome" ng-model="nome" required="required" />
+		<br/>
+		<input type="text" name="sobrenome" id="sobrenome" ng-model="sobrenome" required="required" />
+		<br/>
+		<button>Salvar</button>
+	</form>
+	
+	<hr/>
+	<h1>Rota Deep Linking</h1>
+	<div ng-view>
+	</div>
 </body>
 </html>
