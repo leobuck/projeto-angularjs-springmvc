@@ -70,5 +70,13 @@
 		<p>Resultado: {{points[2]}}</p>
 		<p>Resultado: <span ng-bind="points[2]"></span></p>
 	</div>
+	<hr/>
+	<h1>Diretivas</h1>
+	<div minha-diretiva></div>
+	<form name="myForm">
+		<label for="myEmail">E-mail:</label>
+		<input type="email" name="myEmail" id="myEmail" ng-model="text" />
+		<span ng-show="myForm.myEmail.$error.email">E-mail inválido!</span>
+	</form>
 </body>
 </html>

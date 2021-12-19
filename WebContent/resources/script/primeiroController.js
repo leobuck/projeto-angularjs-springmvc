@@ -52,3 +52,9 @@ app.controller('primeiroController', ['$scope', function($scope) {
 	$scope.pessoas = ['Ana', 'Maria', 'José', 'João'];
 	
 }]);
+
+app.directive('minhaDiretiva', function() {
+	return {
+		template: 'Fui feito em um construtor de diretriz!'
+	};
+});
