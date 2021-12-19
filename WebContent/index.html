@@ -70,6 +70,7 @@
 		<p>Resultado: {{points[2]}}</p>
 		<p>Resultado: <span ng-bind="points[2]"></span></p>
 	</div>
+	
 	<hr/>
 	<h1>Diretivas</h1>
 	<div minha-diretiva></div>
@@ -78,5 +79,49 @@
 		<input type="email" name="myEmail" id="myEmail" ng-model="text" />
 		<span ng-show="myForm.myEmail.$error.email">E-mail inválido!</span>
 	</form>
+	
+	<hr/>
+	<h1>Filtros</h1>
+	<div ng-controller="personCtrl">
+		<p>O nome é {{firstName | uppercase}}</p>
+		<p>O nome é {{lastName | lowercase}}</p>
+	</div>
+	<div ng-controller="namesCtrl">
+		<p>Loop em objetos:</p>
+		<ul>
+			<li ng-repeat="x in names | orderBy: 'name'">
+				{{x.name + ', ' + x.country}}
+			</li>
+		</ul>
+	</div>
+	<div ng-controller="costCtrl">
+		<h2>Preço: {{price | currency}}</h2>
+	</div>
+	<div ng-controller="namesCtrl2">
+		<ul>
+			<li ng-repeat="x in names | filter: 'i'">{{x}}</li>
+		</ul>
+	</div>
+	<div ng-controller="namesCtrl3">
+		<p>
+			<input type="text" ng-model="name">
+		</p>
+		<ul>
+			<li ng-repeat="x in names | filter: name">{{x}}</li>
+		</ul>
+	</div>
+	<div ng-controller="namesCtrl4">
+		<p>Clique no cabeçalho para ordenar:</p>
+		<table border="1" width="100%">
+			<tr>
+				<th ng-click="orderByMe('name')">Nome</th>
+				<th ng-click="orderByMe('country')">País</th>
+			</tr>
+			<tr ng-repeat="x in names | orderBy: myOrderBy">
+				<td>{{x.name}}</td>
+				<td>{{x.country}}</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
