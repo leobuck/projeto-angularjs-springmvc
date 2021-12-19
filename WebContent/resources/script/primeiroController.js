@@ -12,11 +12,13 @@ app.run(function($rootScope) {
 	$rootScope.frutas = ['Banana', 'Melancia', 'Pera'];
 });
 
-app.controller('listController', ['$scope', function($scope) {
+app.controller('listController', ['$scope', '$routeParams', '$rootScope', '$route', '$location', 
+	function($scope, $routeParams, $rootScope, $route, $location) {
 
 }]);
 
-app.controller('editController', ['$scope', function editController($scope, $location, $routeParams) {
+app.controller('editController', ['$scope', '$routeParams', '$rootScope', '$route', '$location', 
+	function editController($scope, $routeParams, $rootScope, $route, $location) {
 	$scope.title = 'Editar fruta';
 	$scope.fruta = $routeParams.name;
 	$scope.frutaIndex = $scope.frutas.indexOf($scope.fruta);
@@ -27,7 +29,8 @@ app.controller('editController', ['$scope', function editController($scope, $loc
 	};
 }]);
 
-app.controller('newController', ['$scope', function newController($scope, $location) {
+app.controller('newController', ['$scope', '$routeParams', '$rootScope', '$route', '$location',
+	function newController($scope, $routeParams, $rootScope, $route, $location) {
 	$scope.title = 'Nova fruta';
 	$scope.fruta = '';
 	
