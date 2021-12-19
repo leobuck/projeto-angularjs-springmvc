@@ -38,5 +38,37 @@
 	<h1>Rota Deep Linking</h1>
 	<div ng-view>
 	</div>
+	
+	<hr/>
+	<h1>Expressões</h1>
+	<h2>Expressão 1</h2>
+	<p>{{5+5}}</p>
+	<h2>Expressão 2</h2>
+	<div ng-init="myColor='red'">
+		<input style="background-color: {{myColor}}" ng-model="myColor" value="{{myColor}}" />
+	</div>
+	<h2>Expressão 3</h2>
+	<div ng-init="valor=2;cota=5">
+		<p>Total em Dólar: {{valor * cota}}</p>
+	</div>
+	<h2>Expressão 4</h2>
+	<div ng-init="quantity=1;cost=5">
+		<p>Total: <span ng-bind="quantity * cost"></span></p>	
+	</div>
+	<h2>Expressão 5</h2>
+	<div ng-init="firstName='John';lastName='Doe'">
+		<p>Meu nome é: {{firstName + " " + lastName}}</p>
+		<p>Meu nome é: <span ng-bind="firstName + ' ' + lastName"></span></p>
+	</div>
+	<h2>Expressão 6</h2>
+	<div ng-init="person={firstName: 'John', lastName: 'Doe'}">
+		<p>Meu nome é: {{person.lastName}}</p>
+		<p>Meu nome é: <span ng-bind="person.lastName"></span></p>
+	</div>
+	<h2>Expressão 7</h2>
+	<div ng-init="points=[1,15,19,2,40]">
+		<p>Resultado: {{points[2]}}</p>
+		<p>Resultado: <span ng-bind="points[2]"></span></p>
+	</div>
 </body>
 </html>
