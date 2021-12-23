@@ -135,5 +135,25 @@
 	<div ng-controller="controllerIntervalo">
 		<p>O horário é: {{intervalo}}</p>
 	</div>
+	
+	<hr/>
+	<h1>Http</h1>
+	<p>Trabalhando com o servidor 1:</p>
+	<button ng-controller="pegarRespostaController" ng-click="pegarResposta();">Pegar resposta do servidor</button>
+	<input type="text" id="resposta" />
+	<p>Trabalhando com o servidor 2:</p>
+	<button ng-controller="pegarRespostaController2" ng-click="pegarResposta2();">Pegar resposta do servidor</button>
+	<input type="text" id="resposta2" />
+	<input type="text" id="resposta3" />
+	<input type="text" id="resposta4" />
+	<p>Trabalhando com o servidor Erro:</p>
+	<button ng-controller="pegarRespostaErroController" ng-click="pegarRespostaErro();">Pegar resposta do servidor</button>
+	<input type="text" id="respostaErro" />
+	<p>Trabalhando com o servidor Json:</p>
+	<div ng-controller="pegarRespostaJsonController">
+		<ul>
+			<li ng-repeat="x in lista">{{x.nome + ' - ' + x.cidade}}</li>
+		</ul>
+	</div>
 </body>
 </html>

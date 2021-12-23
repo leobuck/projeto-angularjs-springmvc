@@ -145,3 +145,37 @@ app.controller('controllerIntervalo', ['$scope', '$interval', function($scope, $
 		$scope.intervalo = new Date().toLocaleTimeString();
 	}, 1000);
 }]);
+
+app.controller('pegarRespostaController', ['$scope', '$http', function($scope, $http) {
+	$scope.pegarResposta = function() {
+		$http.get("pegarResposta").then(function(response) {
+			document.getElementById("resposta").value = "" + response.data;
+		});
+	}
+}]);
+
+app.controller('pegarRespostaController2', ['$scope', '$http', function($scope, $http) {
+	$scope.pegarResposta2 = function() {
+		$http.get("pegarResposta").then(function(response) {
+			document.getElementById("resposta2").value = "" + response.data;
+			document.getElementById("resposta3").value = "" + response.status;
+			document.getElementById("resposta4").value = "" + response.statusText;
+		});
+	}
+}]);
+
+app.controller('pegarRespostaErroController', ['$scope', '$http', function($scope, $http) {
+	$scope.pegarRespostaErro = function() {
+		$http.get("pegarRespostaErro").then(function(response) {
+			document.getElementById("respostaErro").value = "" + response.status;
+		}, function(response) {
+			document.getElementById("respostaErro").value = "" + response.status;
+		});
+	}
+}]);
+
+app.controller('pegarRespostaJsonController', ['$scope', '$http', function($scope, $http) {
+	$http.get("pegarRespostaJson").then(function(response) {
+		$scope.lista = response.data;
+	});
+}]);
