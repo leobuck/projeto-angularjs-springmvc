@@ -6,7 +6,26 @@
 <script type="text/javascript" src="resources/script/angular.min.js"></script>
 <script type="text/javascript" src="resources/script/angular-route.js"></script>
 <script type="text/javascript" src="resources/script/angular-resource.js"></script>
+<script type="text/javascript" src="resources/script/angular-animate.js"></script>
 <script type="text/javascript" src="resources/script/primeiroController.js"></script>
+<style>
+	.myDiv {
+		transition: all linear 0.5s;
+		background-color: lightblue;
+		height: 100px;
+		width: 100%;
+		position: relative;
+		top:0;
+		left:0;
+	}
+	.ng-hide {
+		height: 0;
+		width: 0;
+		background-color: transparent;
+		top: -200px;
+		left: 200px;
+	}
+</style>
 </head>
 <body ng-controller="primeiroController as user" id="corpo">
 	<input type="text" ng-model="user.meuNome"/>
@@ -328,5 +347,11 @@
 		<span ng-show="myForm3.myEmail.$touched && myForm3.myEmail.$invalid">E-mail obrigatório ou inválido</span>
 	</form>
 	
+	<hr/>
+	<h1>Animações</h1>
+	<label>Esconder a div</label>
+	<input type="checkbox" ng-model="myCheck" />
+	<br/><br/>
+	<div class="myDiv" ng-hide="myCheck"></div>
 </body>
 </html>
