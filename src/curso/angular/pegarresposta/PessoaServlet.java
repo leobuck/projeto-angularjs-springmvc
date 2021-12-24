@@ -11,16 +11,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class PegarRespostaJsonServlet
+ * Servlet implementation class PessoaServlet
  */
-@WebServlet("/pegarRespostaJson")
-public class PegarRespostaJsonServlet extends HttpServlet {
+@WebServlet("/pessoas")
+public class PessoaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PegarRespostaJsonServlet() {
+    public PessoaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +34,19 @@ public class PegarRespostaJsonServlet extends HttpServlet {
 		response.setHeader("Cache-Control", "nocache");
 		response.setCharacterEncoding("utf-8");
 		
+		System.out.println(request.getParameter("codPessoa"));
+		
 		JSONArray jsonArray = new JSONArray();
 		
 		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("codPessoa", "1");
 		jsonObject.put("nome", "João");
 		jsonObject.put("cidade", "São Paulo");
 		jsonArray.put(jsonObject);
 		
 		jsonObject = new JSONObject();
+		jsonObject.put("codPessoa", "2");
 		jsonObject.put("nome", "Ana");
-		jsonObject.put("cidade", "Campinas");
-		jsonArray.put(jsonObject);
-		
-		jsonObject = new JSONObject();
-		jsonObject.put("nome", "Pedro");
-		jsonObject.put("cidade", "Americana");
-		jsonArray.put(jsonObject);
-		
-		jsonObject = new JSONObject();
-		jsonObject.put("nome", "Maria");
-		jsonObject.put("cidade", "Rio de Janeiro");
-		jsonArray.put(jsonObject);
-		
-		jsonObject = new JSONObject();
-		jsonObject.put("nome", "José");
 		jsonObject.put("cidade", "Campinas");
 		jsonArray.put(jsonObject);
 		

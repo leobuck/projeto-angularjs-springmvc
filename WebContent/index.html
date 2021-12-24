@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="resources/script/angular.min.js"></script>
 <script type="text/javascript" src="resources/script/angular-route.js"></script>
+<script type="text/javascript" src="resources/script/angular-resource.js"></script>
 <script type="text/javascript" src="resources/script/primeiroController.js"></script>
 </head>
 <body ng-controller="primeiroController as user" id="corpo">
@@ -235,6 +236,18 @@
 	<p ng-show="false">Escondendo</p>
 	<div ng-init="hour=13">
 		<p ng-show="hour > 12">Mostrando horas</p>
+	</div>
+	
+	<hr/>
+	<h1>Resource</h1>
+	<div ng-controller="pessoaController">
+		<input type="text" ng-value="100" ng-model="codPessoa" />
+		<br>
+		<button ng-click="getPorId();">Buscar Por Id</button>
+		<button ng-click="getTodos();">Buscar Todos</button>
+		<button ng-click="salvarPessoa();">Salvar Pessoa</button>
+		<button ng-click="deletarPessoa();">Deletar Pessoa</button>
+		<h3>{{objetoPessoa}}</h3>	
 	</div>
 </body>
 </html>

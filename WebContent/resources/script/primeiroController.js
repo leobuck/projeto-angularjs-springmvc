@@ -1,4 +1,4 @@
-var app = angular.module('loja', ['ngRoute']);
+var app = angular.module('loja', ['ngRoute', 'ngResource']);
 
 app.config(function($routeProvider) {
 	$routeProvider
@@ -184,3 +184,30 @@ app.controller('namesController', ['$scope', function($scope) {
 	$scope.names = ["Emil", "Tobias", "Linus"];
 }]);
 
+app.controller('pessoaController', ['$scope', '$resource', function($scope, $resource) {
+	//pessoas = $resource("/pessoas/:codPessoa");
+	
+	pessoas = $resource("/projeto-angularjs-springmvc/pessoas?codPessoa=:codPessoa");
+	
+	$scope.getPorId = function() {
+		pessoas.get({codPessoa : $scope.codPessoa}, function(data) {
+			$scope.objetoPessoa = data;
+		});
+	};
+	
+	$scope.getTodos	= function() {
+		pessoas.query(function(data) {
+			$scope.objetoPessoa = data;
+		});
+	};
+	
+	$scope.salvarPessoa = function() {
+		p = new pessoas();
+		p.numero = '12345678';
+		p.$save();
+	};
+	
+	$scope.deletarPessoa = function() {
+		pessoas.$delete({codPessoa: "1"});
+	};
+}]);
