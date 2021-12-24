@@ -260,3 +260,12 @@ todosUserController = app.controller('todosUserController',
 });
 
 todosUserController.$inject = ["$scope", "UserService"];
+
+app.controller('filterController', ['$scope', function($scope) {
+	$scope.friends = [
+		{name: "Mario", lastName: "Souza", age: 20},
+		{name: "Maria", lastName: "Quermina", age: 89},
+		{name: "Paulo", lastName: "Mineiro", age: 49},
+		{name: "Vanessa", lastName: "Pereira", age: 22}
+	];
+}]);

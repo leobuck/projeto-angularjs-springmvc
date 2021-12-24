@@ -26,6 +26,9 @@
 		top: -200px;
 		left: 200px;
 	}
+	table {
+		border-collapse: collapse;
+	}
 </style>
 </head>
 <body ng-controller="primeiroController as user" id="corpo">
@@ -180,28 +183,28 @@
 	<hr/>
 	<h1>Tabela de dados</h1>
 	<div ng-controller="pegarRespostaJsonController">
-		<table border="1" style="border-collapse: collapse;">
+		<table border="1">
 			<tr ng-repeat="pessoa in lista">
 				<td>{{pessoa.nome}}</td>
 				<td>{{pessoa.cidade}}</td>
 			</tr>
 		</table>
 		<br/><br/>
-		<table border="1" style="border-collapse: collapse;">
+		<table border="1">
 			<tr ng-repeat="pessoa in lista | orderBy: 'cidade'">
 				<td>{{pessoa.nome}}</td>
 				<td>{{pessoa.cidade}}</td>
 			</tr>
 		</table>
 		<br/><br/>
-		<table border="1" style="border-collapse: collapse;">
+		<table border="1">
 			<tr ng-repeat="pessoa in lista">
 				<td>{{pessoa.nome}}</td>
 				<td>{{pessoa.cidade | uppercase}}</td>
 			</tr>
 		</table>
 		<br/><br/>
-		<table border="1" style="border-collapse: collapse;">
+		<table border="1">
 			<tr ng-repeat="pessoa in lista">
 				<td>{{$index}}</td>
 				<td>{{pessoa.nome}}</td>
@@ -209,7 +212,7 @@
 			</tr>
 		</table>
 		<br/><br/>
-		<table border="1" style="border-collapse: collapse;">
+		<table border="1">
 			<tr ng-repeat="pessoa in lista">
 				<td ng-if="$odd" style="background-color: lime;">{{pessoa.nome}}</td>
 				<td ng-if="$even">{{pessoa.nome}}</td>
@@ -369,5 +372,29 @@
 	<div ng-controller="todosUserController">
 		<p>Todos: {{todos}}</p>
 	</div>
+	
+	<hr/>
+	<h1>Filtro em tabela de dados</h1>
+	<div ng-controller="filterController">
+		<label>Consulta:</label>
+		<input type="text" ng-model="criteria" />
+		<br/><br/>
+		<table border="1">
+			<thead>
+				<th>Nome</th>
+				<th>Sobrenome</th>
+				<th>Idade</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="friend in resultadoQtd = (friends | filter: {name: criteria})">
+					<td>{{friend.name}}</td>
+					<td>{{friend.lastName}}</td>
+					<td>{{friend.age}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Total de resultados: {{resultadoQtd.length}}</h3>
+	</div>
+	
 </body>
 </html>
