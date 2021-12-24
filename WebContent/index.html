@@ -7,6 +7,7 @@
 <script type="text/javascript" src="resources/script/angular-route.js"></script>
 <script type="text/javascript" src="resources/script/angular-resource.js"></script>
 <script type="text/javascript" src="resources/script/angular-animate.js"></script>
+<script type="text/javascript" src="resources/script/angular-locale_pt-br.js"></script>
 <script type="text/javascript" src="resources/script/primeiroController.js"></script>
 <style>
 	.myDiv {
@@ -353,5 +354,11 @@
 	<input type="checkbox" ng-model="myCheck" />
 	<br/><br/>
 	<div class="myDiv" ng-hide="myCheck"></div>
+	
+	<hr/>
+	<h1>Formatação de campo moeda</h1>
+	<input type="text" ng-model="moeda" />
+	<p>Moeda padrão: {{moeda | currency : "$"}}</p>
+	<p>Moeda Real: {{moeda | currency}}</p>
 </body>
 </html>

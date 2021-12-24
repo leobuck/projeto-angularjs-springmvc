@@ -1,4 +1,4 @@
-var app = angular.module('loja', ['ngRoute', 'ngResource', 'ngAnimate']);
+var app = angular.module('loja', ['ngRoute', 'ngResource', 'ngAnimate', 'ngLocale']);
 
 app.config(function($routeProvider) {
 	$routeProvider
