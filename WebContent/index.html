@@ -155,5 +155,47 @@
 			<li ng-repeat="x in lista">{{x.nome + ' - ' + x.cidade}}</li>
 		</ul>
 	</div>
+	
+	<hr/>
+	<h1>Tabela de dados</h1>
+	<div ng-controller="pegarRespostaJsonController">
+		<table border="1" style="border-collapse: collapse;">
+			<tr ng-repeat="pessoa in lista">
+				<td>{{pessoa.nome}}</td>
+				<td>{{pessoa.cidade}}</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<table border="1" style="border-collapse: collapse;">
+			<tr ng-repeat="pessoa in lista | orderBy: 'cidade'">
+				<td>{{pessoa.nome}}</td>
+				<td>{{pessoa.cidade}}</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<table border="1" style="border-collapse: collapse;">
+			<tr ng-repeat="pessoa in lista">
+				<td>{{pessoa.nome}}</td>
+				<td>{{pessoa.cidade | uppercase}}</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<table border="1" style="border-collapse: collapse;">
+			<tr ng-repeat="pessoa in lista">
+				<td>{{$index}}</td>
+				<td>{{pessoa.nome}}</td>
+				<td>{{pessoa.cidade}}</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<table border="1" style="border-collapse: collapse;">
+			<tr ng-repeat="pessoa in lista">
+				<td ng-if="$odd" style="background-color: lime;">{{pessoa.nome}}</td>
+				<td ng-if="$even">{{pessoa.nome}}</td>
+				<td ng-if="$odd" style="background-color: lime;">{{pessoa.cidade}}</td>
+				<td ng-if="$even">{{pessoa.cidade}}</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
