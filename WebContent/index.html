@@ -221,5 +221,20 @@
 		<p>Nome: {{selecionado.nome}}</p>
 		<p>Cidade: {{selecionado.cidade}}</p>
 	</div>
+	
+	<hr/>
+	<h1>DOM</h1>
+	<div ng-init="mySwitch=true">
+		<button ng-disabled="mySwitch">Clique</button>
+		<br><br>
+		<input id="mySwitch" type="checkbox" ng-model="mySwitch" />
+		<label for="mySwitch">Botão</label>
+		<p>{{mySwitch}}</p>
+	</div>
+	<p ng-show="true">Mostrando</p>
+	<p ng-show="false">Escondendo</p>
+	<div ng-init="hour=13">
+		<p ng-show="hour > 12">Mostrando horas</p>
+	</div>
 </body>
 </html>
