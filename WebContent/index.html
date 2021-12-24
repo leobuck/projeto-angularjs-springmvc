@@ -360,5 +360,14 @@
 	<input type="text" ng-model="moeda" />
 	<p>Moeda padrão: {{moeda | currency : "$"}}</p>
 	<p>Moeda Real: {{moeda | currency}}</p>
+	
+	<hr/>
+	<h1>Injeção de dependência</h1>
+	<div ng-controller="primeiroUserController">
+		<p>Primeiro: {{primeiro}}</p>
+	</div>
+	<div ng-controller="todosUserController">
+		<p>Todos: {{todos}}</p>
+	</div>
 </body>
 </html>

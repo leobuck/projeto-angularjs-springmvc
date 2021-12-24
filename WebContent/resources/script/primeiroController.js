@@ -233,3 +233,30 @@ app.controller('formCtrl', ['$scope', function($scope) {
 	};
 	$scope.reset();
 }]);
+
+app.factory("UserService", function() {
+	var users = ["Ivete", "Alex", "Paulo"];
+	
+	return {
+		all: function() {
+			return users;
+		},
+		primeiro: function() {
+			return users[0];
+		}
+	};	
+});
+
+primeiroUserController = app.controller('primeiroUserController',  
+	function($scope, UserService) {
+		$scope.primeiro = UserService.primeiro();
+});
+
+primeiroUserController.$inject = ["$scope", "UserService"];
+
+todosUserController = app.controller('todosUserController',  
+	function($scope, UserService) {
+		$scope.todos = UserService.all();
+});
+
+todosUserController.$inject = ["$scope", "UserService"];
