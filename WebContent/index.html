@@ -197,5 +197,29 @@
 			</tr>
 		</table>
 	</div>
+	
+	<hr/>
+	<h1>Componente Select</h1>
+	<div ng-controller="namesController">
+		<select ng-model="selectedName" ng-options="x for x in names"></select>
+		<br/><br/><br/>
+		<select>
+			<option ng-repeat="x in names">{{x}}</option>
+		</select>
+	</div>
+	<div ng-controller="pegarRespostaJsonController">
+		<p>Selecione um nome:</p>
+		<select ng-model="nomeSelecionado">
+			<option ng-repeat="x in lista" value="{{x.nome}}">{{x.nome}}</option>
+		</select>
+		<p>Selecionado: {{nomeSelecionado}}</p>
+		
+		<p>Selecione um nome:</p>
+		<select ng-model="selecionado" ng-options="x for (x, y) in lista">
+		</select>
+		<p>Selecionado:</p>
+		<p>Nome: {{selecionado.nome}}</p>
+		<p>Cidade: {{selecionado.cidade}}</p>
+	</div>
 </body>
 </html>

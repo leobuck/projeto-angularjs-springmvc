@@ -179,3 +179,8 @@ app.controller('pegarRespostaJsonController', ['$scope', '$http', function($scop
 		$scope.lista = response.data;
 	});
 }]);
+
+app.controller('namesController', ['$scope', function($scope) {
+	$scope.names = ["Emil", "Tobias", "Linus"];
+}]);
+
