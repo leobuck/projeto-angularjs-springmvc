@@ -5,8 +5,15 @@ app.config(function($routeProvider) {
 		.when("/", { controller: "listController", templateUrl: "list.html" })
 		.when("/edit/:name", { controller: "editController", templateUrl: "form.html" })
 		.when("/new", { controller: "newController", templateUrl: "form.html" })
+		.when("/clientelist", { controller: "clienteController", templateUrl: "cliente/list.html" })
+		.when("/cliente/:id", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
+		.when("/cliente/cadastro", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
 		.otherwise({ redirectTo: "/" });
 });
+
+app.controller('clienteController', ['$scope', function($scope) {
+
+}]);
 
 app.run(function($rootScope) {
 	$rootScope.frutas = ['Banana', 'Melancia', 'Pera'];
