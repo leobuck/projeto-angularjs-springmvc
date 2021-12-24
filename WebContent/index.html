@@ -249,5 +249,25 @@
 		<button ng-click="deletarPessoa();">Deletar Pessoa</button>
 		<h3>{{objetoPessoa}}</h3>	
 	</div>
+	
+	<hr/>
+	<h1>Eventos</h1>
+	<h3 ng-mousemove="count = count + 1">Passe o mouse sobre mim</h3>
+	<p>{{count}}</p>
+	<h3 ng-click="count2 = count2 + 1">Clique</h3>
+	<p>{{count2}}</p>
+	<div ng-controller="clickController">
+		<button ng-click="myFunc();">Clique</button>
+		<div ng-show="showMe">
+			<h3>Menu:</h3>
+			<p>Pizza</p>
+			<p>Macarrão</p>
+			<p>Lasanha</p>
+		</div>
+	</div>
+	<div ng-controller="coordenadasController">
+		<h3 ng-mousemove="myFunc($event);">Passe o mouse sobre mim para exibir as coordenadas</h3>
+		<p>Coordenadas: {{x + ', ' + y}}</p>
+	</div>
 </body>
 </html>

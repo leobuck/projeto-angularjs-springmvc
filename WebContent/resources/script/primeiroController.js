@@ -211,3 +211,17 @@ app.controller('pessoaController', ['$scope', '$resource', function($scope, $res
 		pessoas.$delete({codPessoa: "1"});
 	};
 }]);
+
+app.controller('clickController', ['$scope', function($scope) {
+	$scope.showMe = false;
+	$scope.myFunc = function() {
+		$scope.showMe = !$scope.showMe;
+	}
+}]);
+
+app.controller('coordenadasController', ['$scope', function($scope) {
+	$scope.myFunc = function(myE) {
+		$scope.x = myE.clientX;
+		$scope.y = myE.clientY;
+	}
+}]);
