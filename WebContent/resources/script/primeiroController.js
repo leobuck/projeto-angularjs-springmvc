@@ -225,3 +225,11 @@ app.controller('coordenadasController', ['$scope', function($scope) {
 		$scope.y = myE.clientY;
 	}
 }]);
+
+app.controller('formCtrl', ['$scope', function($scope) {
+	$scope.master = {firstName: "John", lastName: "Doe"};
+	$scope.reset = function() {
+		$scope.user = angular.copy($scope.master);
+	};
+	$scope.reset();
+}]);

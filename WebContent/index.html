@@ -269,5 +269,64 @@
 		<h3 ng-mousemove="myFunc($event);">Passe o mouse sobre mim para exibir as coordenadas</h3>
 		<p>Coordenadas: {{x + ', ' + y}}</p>
 	</div>
+	
+	<hr/>
+	<h1>Validação de formulário</h1>
+	<form>
+		<label>Selecione um tópico:</label>
+		<select ng-model="myVar">
+			<option value="Selecione">Selecione</option>
+			<option value="cachorros">Cachorros</option>
+			<option value="tutoriais">Tutoriais</option>
+			<option value="carros">Carros</option>
+		</select>
+	</form>
+	
+	<div ng-switch="myVar">
+		<div ng-switch-when="cachorros">
+			<p>Selecionou Cachorros</p>
+		</div>
+		<div ng-switch-when="tutoriais">
+			<p>Selecionou Tutoriais</p>
+		</div>
+		<div ng-switch-when="carros">
+			<p>Selecionou Carros</p>
+		</div>
+	</div>
+	
+	<div ng-controller="formCtrl">
+		<form novalidate="novalidate">
+			<label>Nome:</label>
+			<input type="text" ng-model="user.firstName">
+			<br/>
+			<label>Sobrenome:</label>
+			<input type="text" ng-model="user.lastName">
+			<br/>
+			<button ng-click="reset();">Resetar</button>
+		</form>
+		<p>form = {{user}}</p>
+		<p>master = {{master}}</p>
+	</div>
+	
+	<form name="myForm">
+		<input name="myInput" ng-model="myInput" required="required" />
+	</form>
+	<p>Verificando se o form é válido: {{myForm.myInput.$valid}}</p>
+	
+	<form name="myForm2">
+		<input type="email" name="myInput2" ng-model="myInput2" />
+	</form>
+	<p>Verificando se o e-mail é válido: {{myForm2.myInput2.$valid}}</p>
+	
+	<form name="myForm3">
+		<label>Nome:</label>
+		<input name="myName" ng-model="myName" required="required" />
+		<span ng-show="myForm3.myName.$touched && myForm3.myName.$invalid">Nome obrigatório</span>
+		<br/>
+		<label>E-mail:</label>
+		<input type="email" name="myEmail" ng-model="myEmail" required="required" />
+		<span ng-show="myForm3.myEmail.$touched && myForm3.myEmail.$invalid">E-mail obrigatório ou inválido</span>
+	</form>
+	
 </body>
 </html>
