@@ -41,4 +41,8 @@
 	<bean id="transactionManager" name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="false">
 		<property name="dataSource" ref="springDataSource" />
 	</bean>
+	
+	<bean id="clienteController" name="clienteController" class="curso.angular.controller.ClienteController">
+		<constructor-arg value="curso.angular.model.Cliente" />
+	</bean>
 </beans>
