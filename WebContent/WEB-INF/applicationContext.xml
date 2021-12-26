@@ -17,7 +17,7 @@
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	
-	<mvc:resources location="/resources/img" mapping="/resources/**" cache-period="5000" />
+	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="5000" />
 	
 	<context:component-scan base-package="curso.angular.dao" />
 	<context:component-scan base-package="curso.angular.controller" />
@@ -36,6 +36,7 @@
 		<property name="sqlMigrationSeparator" value="_" />
 		<property name="encoding" value="ISO-8859-1" />
 		<property name="validateOnMigrate" value="true" />
+		<property name="locations" value="classpath:db/migration" />
 	</bean>
 	
 	<bean id="transactionManager" name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="false">

@@ -2,7 +2,7 @@ var app = angular.module('loja', ['ngRoute', 'ngResource', 'ngAnimate', 'ngLocal
 
 app.config(function($routeProvider) {
 	$routeProvider
-		.when("/", { controller: "listController", templateUrl: "list.html" })
+		.when("/list", { controller: "listController", templateUrl: "list.html" })
 		.when("/edit/:name", { controller: "editController", templateUrl: "form.html" })
 		.when("/new", { controller: "newController", templateUrl: "form.html" })
 		.when("/clientelist", { controller: "clienteController", templateUrl: "cliente/list.html" })
@@ -11,8 +11,12 @@ app.config(function($routeProvider) {
 		.otherwise({ redirectTo: "/" });
 });
 
-app.controller('clienteController', ['$scope', function($scope) {
-
+app.controller('clienteController', ['$scope', '$http', function($scope, $http) {
+	$scope.listarClientes = function() {
+		$http.get("cliente/listar").then(function(response) {
+			$scope.data = response.data;
+		});
+	};
 }]);
 
 app.run(function($rootScope) {
