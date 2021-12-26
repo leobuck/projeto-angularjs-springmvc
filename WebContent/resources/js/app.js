@@ -17,6 +17,12 @@ app.controller('clienteController', ['$scope', '$http', function($scope, $http) 
 			$scope.data = response.data;
 		});
 	};
+	
+	$scope.removerCliente = function(id) {
+		$http.delete("cliente/deletar/" + id).then(function(response) {
+			$scope.listarClientes();
+		});
+	};
 }]);
 
 app.run(function($rootScope) {
