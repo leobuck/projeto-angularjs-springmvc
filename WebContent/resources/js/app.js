@@ -6,13 +6,27 @@ app.config(function($routeProvider) {
 		.when("/edit/:name", { controller: "editController", templateUrl: "form.html" })
 		.when("/new", { controller: "newController", templateUrl: "form.html" })
 		.when("/clientelist", { controller: "clienteController", templateUrl: "cliente/list.html" })
-		.when("/cliente/:id", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
+		.when("/clienteedit/:id", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
 		.when("/cliente/cadastro", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
 		.otherwise({ redirectTo: "/" });
 });
 
-app.controller('clienteController', ['$scope', '$http', function($scope, $http) {
-	$scope.cliente = {};
+app.controller('clienteController', ['$scope', '$http', '$location', '$routeParams',
+	function($scope, $http, $location, $routeParams) {
+	
+	if ($routeParams.id != null && $routeParams.id != undefined && $routeParams.id != '') {
+		$scope.cliente = {'id': $routeParams.id};
+		
+		$http.get("cliente/buscarCliente/" + $routeParams.id).then(function(response) {
+			$scope.cliente = response.data;
+		});
+	} else {
+		$scope.cliente = {};
+	}
+	
+	$scope.editarCliente = function(id) {
+		$location.path("clienteedit/" + id);
+	}
 	
 	$scope.salvarCliente = function() {
 		$http.post("cliente/salvar", $scope.cliente).then(function(response) {
@@ -30,6 +44,11 @@ app.controller('clienteController', ['$scope', '$http', function($scope, $http) 
 		$http.delete("cliente/deletar/" + id).then(function(response) {
 			$scope.listarClientes();
 		});
+	};
+	
+	$scope.limparForm = function() {
+		$scope.cliente = {};
+		$scope.formCliente.$setPristine();
 	};
 }]);
 

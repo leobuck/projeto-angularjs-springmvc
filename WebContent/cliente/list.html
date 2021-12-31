@@ -19,7 +19,7 @@
 				<th>Nome</th>
 				<th>Endereço</th>
 				<th>Telefone</th>
-				<th>Remover</th>
+				<th>Ações</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="cliente in data">
@@ -27,7 +27,10 @@
 					<td>{{cliente.nome}}</td>
 					<td>{{cliente.endereco}}</td>
 					<td>{{cliente.telefone}}</td>
-					<td><a href ng-click="removerCliente(cliente.id);">Remover</a></td>
+					<td>
+						<a href ng-click="editarCliente(cliente.id);">Editar</a>
+						<a href ng-click="removerCliente(cliente.id);">Remover</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

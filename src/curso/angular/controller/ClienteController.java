@@ -23,11 +23,12 @@ public class ClienteController extends ImplementacaoDao<Cliente> implements IDao
 		super(persistenceClass);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity salvar(@RequestBody String jsonCliente) throws Exception {
 		Cliente cliente = new Gson().fromJson(jsonCliente, Cliente.class);
-		super.salvar(cliente);
+		super.salvarOuAtualizar(cliente);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
@@ -37,12 +38,21 @@ public class ClienteController extends ImplementacaoDao<Cliente> implements IDao
 		return new Gson().toJson(super.listar());
 	}
 	
-	@RequestMapping(value = "/deletar/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+	@RequestMapping(value = "deletar/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String deleta(@PathVariable("id") Long id) throws Exception {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
 		super.deletar(cliente);
 		return "";
+	}
+	
+	@RequestMapping(value = "buscarCliente/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String buscarCliente(@PathVariable("id") Long id) throws Exception {
+		Cliente cliente = super.buscarPorId(id);
+		if (cliente == null)
+			return "{}";
+		return new Gson().toJson(cliente);
 	}
 }

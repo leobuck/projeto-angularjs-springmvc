@@ -17,7 +17,7 @@
 <div class="col-lg-9 col-md-8">
 	<div class="card">
 		<div class="content">
-			<form id="formCliente" ng-submit="salvarCliente();">
+			<form id="formCliente" name="formCliente" ng-submit="salvarCliente();">
 			
 				<div class="row">
 				
@@ -61,7 +61,7 @@
 
 				<div class="text-center">
 					<button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
-					<button type="button" class="btn btn-info btn-fill btn-wd" ng-click="$scope.cliente={}">Limpar</button>
+					<button type="button" class="btn btn-info btn-fill btn-wd" ng-click="limparForm();">Limpar</button>
 				</div>
 			</form>
 		</div>

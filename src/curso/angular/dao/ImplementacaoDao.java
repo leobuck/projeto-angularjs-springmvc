@@ -58,4 +58,10 @@ public abstract class ImplementacaoDao<T> implements IDao<T> {
 	public List<T> listar() throws Exception {
 		return sessionFactory.getCurrentSession().createCriteria(persistenceClass).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public T buscarPorId(Long id) throws Exception {
+		return (T) sessionFactory.getCurrentSession().get(persistenceClass, id);
+	}
 }
