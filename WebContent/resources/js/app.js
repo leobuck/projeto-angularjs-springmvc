@@ -12,6 +12,14 @@ app.config(function($routeProvider) {
 });
 
 app.controller('clienteController', ['$scope', '$http', function($scope, $http) {
+	$scope.cliente = {};
+	
+	$scope.salvarCliente = function() {
+		$http.post("cliente/salvar", $scope.cliente).then(function(response) {
+			$scope.cliente = {};
+		});
+	}
+	
 	$scope.listarClientes = function() {
 		$http.get("cliente/listar").then(function(response) {
 			$scope.data = response.data;
