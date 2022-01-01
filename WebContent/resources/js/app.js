@@ -19,6 +19,8 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		
 		$http.get("cliente/buscarCliente/" + $routeParams.id).then(function(response) {
 			$scope.cliente = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
 		});
 	} else {
 		$scope.cliente = {};
@@ -31,18 +33,26 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 	$scope.salvarCliente = function() {
 		$http.post("cliente/salvar", $scope.cliente).then(function(response) {
 			$scope.cliente = {};
+			sucesso("Salvo com sucesso!");
+		}, function(response) {
+			erro("Erro: " + response.status);
 		});
 	}
 	
 	$scope.listarClientes = function() {
 		$http.get("cliente/listar").then(function(response) {
 			$scope.data = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
 		});
 	};
 	
 	$scope.removerCliente = function(id) {
 		$http.delete("cliente/deletar/" + id).then(function(response) {
 			$scope.listarClientes();
+			sucesso("Removido com sucesso!");
+		}, function(response) {
+			erro("Erro: " + response.status);
 		});
 	};
 	
@@ -50,6 +60,26 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		$scope.cliente = {};
 		$scope.formCliente.$setPristine();
 	};
+	
+	function sucesso(msg) {
+		$.notify({
+			message: msg
+		},
+		{
+			type: 'success',
+			timer: 1000
+		});
+	}
+	
+	function erro(msg) {
+		$.notify({
+			message: msg
+		},
+		{
+			type: 'danger',
+			timer: 1000
+		});
+	}
 }]);
 
 app.run(function($rootScope) {

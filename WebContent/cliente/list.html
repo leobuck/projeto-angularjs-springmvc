@@ -7,9 +7,22 @@
 <body>
 <h1>Lista de Clientes</h1>
 
-<a href="#cliente/cadastro">Novo
-	<img alt="Novo" src="resources/img/add-icon.png" border="0">
+<a href="#cliente/cadastro">
+	<img alt="Novo" src="resources/img/add-icon.png" border="0"> Novo Cliente
 </a>
+
+<br/>
+<br/>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="form-group">
+			<label for="filtro">Filtro</label>
+			<input type="text" id="filtro" name="filtro" ng-model="filtro" class="form-control border-input" />
+		</div>
+	</div>
+</div>
+
 
 <div ng-controller="clienteController" ng-init="listarClientes();">
 	<div class="content table-responsive table-full-width">
@@ -22,14 +35,18 @@
 				<th>Ações</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="cliente in data">
+				<tr ng-repeat="cliente in data | filter: filtro">
 					<td>{{cliente.id}}</td>
 					<td>{{cliente.nome}}</td>
 					<td>{{cliente.endereco}}</td>
 					<td>{{cliente.telefone}}</td>
 					<td>
-						<a href ng-click="editarCliente(cliente.id);">Editar</a>
-						<a href ng-click="removerCliente(cliente.id);">Remover</a>
+						<a href ng-click="editarCliente(cliente.id);">
+							<img alt="Editar" src="resources/img/edit-icon.png" border="0"> Editar
+						</a>
+						<a href ng-click="removerCliente(cliente.id);">
+							<img alt="Remover" src="resources/img/delete-icon.png" border="0"> Remover
+						</a>
 					</td>
 				</tr>
 			</tbody>
