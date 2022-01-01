@@ -14,7 +14,7 @@
 <br/>
 <br/>
 
-<div class="col-lg-9 col-md-8">
+<div class="col-lg-9 col-md-8" ng-init="carregarEstados();">
 	<div class="card">
 		<div class="content">
 			<form id="formCliente" name="formCliente" ng-submit="salvarCliente();">
@@ -110,9 +110,27 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Estado</label>
-							<select ng-model="cliente.estados" class="form-control border-input"
-								onchange="carregarCidades(this.value)" ng-init="carregarEstados();">
-								<option ng-repeat="estados in dataEstados" value="{{estados.id}}">{{estados.nome}}</option>
+							<select id="selectEstados" class="form-control border-input"
+								ng-model="cliente.estados.id"
+								ng-change="carregarCidades()">
+								<option value="">Selecione</option>
+								<option ng-repeat="estado in estados" value="{{estado.id}}">
+									{{estado.nome}}
+								</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Cidade</label>
+							<select id="selectCidades" class="form-control border-input"
+								ng-model="cliente.cidades.id">
+								<option value="">Selecione</option>
+								<option ng-repeat="cidade in cidades"
+									value="{{cidade.id}}">
+									{{cidade.nome}}
+								</option>
 							</select>
 						</div>
 					</div>

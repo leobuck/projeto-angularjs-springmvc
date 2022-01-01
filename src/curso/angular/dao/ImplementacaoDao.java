@@ -64,4 +64,12 @@ public abstract class ImplementacaoDao<T> implements IDao<T> {
 	public T buscarPorId(Long id) throws Exception {
 		return (T) sessionFactory.getCurrentSession().get(persistenceClass, id);
 	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public Class<T> getPersistenceClass() {
+		return persistenceClass;
+	}
 }

@@ -19,6 +19,19 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		
 		$http.get("cliente/buscarCliente/" + $routeParams.id).then(function(response) {
 			$scope.cliente = response.data;
+			
+			setTimeout(function() {
+				$("#selectEstados").prop("selectedIndex", (new Number($scope.cliente.estados.id) + 1));
+				
+				$http.get("cidades/listar/" + $scope.cliente.estados.id).then(function(response) {
+					$scope.cidades = response.data;
+					setTimeout(function() {
+						$("#selectCidades").prop("selectedIndex", buscarKeyJson(response.data, 'id', $scope.cliente.cidades.id));		
+					}, 1000);
+				}, function(response) {
+					erro("Erro: " + response.status);
+				});
+			}, 1000);
 		}, function(response) {
 			erro("Erro: " + response.status);
 		});
@@ -57,15 +70,21 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 	};
 	
 	$scope.carregarEstados = function() {
+		$scope.estados = [{}];
 		$http.get("estados/listar").then(function(response) {
-			$scope.dataEstados = response.data;
+			$scope.estados = response.data;
 		}, function(response) {
 			erro("Erro: " + response.status);
 		});
 	};
 	
-	$scope.carregarCidades = function(estadoId) {
-		
+	$scope.carregarCidades = function() {
+		$scope.cidades = [{}];
+		$http.get("cidades/listar/" + $scope.cliente.estados.id).then(function(response) {
+			$scope.cidades = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
 	};
 	
 	$scope.limparForm = function() {
@@ -91,6 +110,15 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 			type: 'danger',
 			timer: 1000
 		});
+	}
+	
+	function buscarKeyJson(obj, key, value) {
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i][key] == value) {
+				return i + 2;
+			}
+		}
+		return null;
 	}
 }]);
 

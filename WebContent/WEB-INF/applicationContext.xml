@@ -50,4 +50,8 @@
 	<bean id="estadosController" name="estadosController" class="curso.angular.controller.EstadosController">
 		<constructor-arg value="curso.angular.model.Estados" />
 	</bean>
+	
+	<bean id="cidadesController" name="cidadesController" class="curso.angular.controller.CidadesController">
+		<constructor-arg value="curso.angular.model.Cidades" />
+	</bean>
 </beans>

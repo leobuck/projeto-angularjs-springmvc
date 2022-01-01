@@ -1,6 +1,7 @@
 package curso.angular.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,9 +21,12 @@ public class Cliente {
 	private String sexo;
 	private Boolean ativo;
 	private String interesse;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "estados_fk")
 	private Estados estados;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@ForeignKey(name = "cidades_fk")
+	private Cidades cidades;
 
 	public Long getId() {
 		return id;
