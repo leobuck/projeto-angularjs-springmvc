@@ -46,4 +46,8 @@
 	<bean id="clienteController" name="clienteController" class="curso.angular.controller.ClienteController">
 		<constructor-arg value="curso.angular.model.Cliente" />
 	</bean>
+	
+	<bean id="estadosController" name="estadosController" class="curso.angular.controller.EstadosController">
+		<constructor-arg value="curso.angular.model.Estados" />
+	</bean>
 </beans>

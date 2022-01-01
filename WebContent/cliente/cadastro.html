@@ -104,6 +104,20 @@
 					</div>
 
 				</div>
+				
+				<div class="row">
+				
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Estado</label>
+							<select ng-model="cliente.estados" class="form-control border-input"
+								onchange="carregarCidades(this.value)" ng-init="carregarEstados();">
+								<option ng-repeat="estados in dataEstados" value="{{estados.id}}">{{estados.nome}}</option>
+							</select>
+						</div>
+					</div>
+					
+				</div>
 
 				<div class="text-center">
 					<button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>

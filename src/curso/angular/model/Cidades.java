@@ -6,22 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.ForeignKey;
-
 @Entity
-public class Cliente {
+public class Cidades {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	private String endereco;
-	private String telefone;
-	private String sexo;
-	private Boolean ativo;
-	private String interesse;
 	@ManyToOne
-	@ForeignKey(name = "estados_fk")
 	private Estados estados;
 
 	public Long getId() {
@@ -40,58 +32,14 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-	
-	public String getSexo() {
-		return sexo;
-	}
-	
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	
-	public Boolean getAtivo() {
-		return ativo;
-	}
-	
-	public void setAtivo(Boolean ativo) {
-		if (ativo == null)
-			ativo = false;
-		this.ativo = ativo;
-	}
-
-	public String getInteresse() {
-		return interesse;
-	}
-	
-	public void setInteresse(String interesse) {
-		if (interesse == null || interesse.isEmpty())
-			interesse = "programacao";
-		this.interesse = interesse;
-	}
-	
 	public Estados getEstados() {
 		return estados;
 	}
-	
+
 	public void setEstados(Estados estados) {
 		this.estados = estados;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,7 +56,7 @@ public class Cliente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Cidades other = (Cidades) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

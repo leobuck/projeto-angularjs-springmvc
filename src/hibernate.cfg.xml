@@ -23,5 +23,7 @@
 		<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
 		
 		<mapping class="curso.angular.model.Cliente" />
+		<mapping class="curso.angular.model.Estados" />
+		<mapping class="curso.angular.model.Cidades" />
     </session-factory>
 </hibernate-configuration>

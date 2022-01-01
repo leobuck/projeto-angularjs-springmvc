@@ -56,6 +56,18 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		});
 	};
 	
+	$scope.carregarEstados = function() {
+		$http.get("estados/listar").then(function(response) {
+			$scope.dataEstados = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.carregarCidades = function(estadoId) {
+		
+	};
+	
 	$scope.limparForm = function() {
 		$scope.cliente = {};
 		$scope.formCliente.$setPristine();
