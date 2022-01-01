@@ -28,6 +28,12 @@ public class ClienteController extends ImplementacaoDao<Cliente> implements IDao
 	@ResponseBody
 	public ResponseEntity salvar(@RequestBody String jsonCliente) throws Exception {
 		Cliente cliente = new Gson().fromJson(jsonCliente, Cliente.class);
+		
+		if (cliente != null && cliente.getAtivo() == null)
+			cliente.setAtivo(false);
+		if (cliente != null && (cliente.getInteresse() == null || cliente.getInteresse().isEmpty()))
+			cliente.setInteresse("programacao");
+		
 		super.salvarOuAtualizar(cliente);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

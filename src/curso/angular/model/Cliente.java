@@ -14,6 +14,9 @@ public class Cliente {
 	private String nome;
 	private String endereco;
 	private String telefone;
+	private String sexo;
+	private Boolean ativo;
+	private String interesse;
 
 	public Long getId() {
 		return id;
@@ -46,7 +49,35 @@ public class Cliente {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	
+	public void setAtivo(Boolean ativo) {
+		if (ativo == null)
+			ativo = false;
+		this.ativo = ativo;
+	}
 
+	public String getInteresse() {
+		return interesse;
+	}
+	
+	public void setInteresse(String interesse) {
+		if (interesse == null || interesse.isEmpty())
+			interesse = "programacao";
+		this.interesse = interesse;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

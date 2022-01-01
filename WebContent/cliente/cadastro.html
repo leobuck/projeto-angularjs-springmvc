@@ -59,6 +59,52 @@
 					
 				</div>
 
+				<div class="row">
+				
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Sexo</label>
+							<select ng-model="cliente.sexo" class="form-control border-input">
+								<option value="Masculino">Masculino</option>
+								<option value="Feminino">Feminino</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Ativo</label>
+							<input type="checkbox" ng-model="cliente.ativo" class="form-control border-input" />
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="row">
+				
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Banco de dados</label>
+							<input type="radio" ng-model="cliente.interesse" class="form-control border-input" name="interesse" value="banco" />
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Programação</label>
+							<input type="radio" ng-model="cliente.interesse" class="form-control border-input" name="interesse" value="programacao" ng-checked="true" />
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Análise</label>
+							<input type="radio" ng-model="cliente.interesse" class="form-control border-input" name="interesse" value="analise" />
+						</div>
+					</div>
+
+				</div>
+
 				<div class="text-center">
 					<button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
 					<button type="button" class="btn btn-info btn-fill btn-wd" ng-click="limparForm();">Limpar</button>
