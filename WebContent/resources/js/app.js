@@ -57,9 +57,16 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 	
-	$scope.listarClientes = function() {
-		$http.get("cliente/listar").then(function(response) {
+	$scope.listarClientes = function(numeroPagina) {
+		$scope.numeroPagina = numeroPagina;
+		$http.get("cliente/listar/" + numeroPagina).then(function(response) {
 			$scope.data = response.data;
+			
+			$http.get("cliente/totalPagina").then(function(response) {
+				$scope.totalPagina = response.data;
+			}, function(response) {
+				erro("Erro: " + response.status);
+			});
 		}, function(response) {
 			erro("Erro: " + response.status);
 		});
@@ -67,7 +74,7 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 	
 	$scope.removerCliente = function(id) {
 		$http.delete("cliente/deletar/" + id).then(function(response) {
-			$scope.listarClientes();
+			$scope.listarClientes($scope.numeroPagina);
 			sucesso("Removido com sucesso!");
 		}, function(response) {
 			erro("Erro: " + response.status);
@@ -95,6 +102,14 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 	$scope.limparForm = function() {
 		$scope.cliente = {};
 		$scope.formCliente.$setPristine();
+	};
+	
+	$scope.proximo = function() {
+		$scope.listarClientes($scope.numeroPagina + 1);
+	};
+	
+	$scope.anterior = function() {
+		$scope.listarClientes($scope.numeroPagina - 1);
 	};
 	
 	function sucesso(msg) {

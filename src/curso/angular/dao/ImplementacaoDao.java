@@ -2,7 +2,10 @@ package curso.angular.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,13 +59,57 @@ public abstract class ImplementacaoDao<T> implements IDao<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> listar() throws Exception {
-		return sessionFactory.getCurrentSession().createCriteria(persistenceClass).list();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(persistenceClass);
+		criteria.addOrder(Order.asc("id"));
+		return criteria.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public T buscarPorId(Long id) throws Exception {
 		return (T) sessionFactory.getCurrentSession().get(persistenceClass, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> consultaPaginada(int numeroPagina) throws Exception {
+		int totalPorPagina = 6;
+		int offset = (numeroPagina * totalPorPagina) - totalPorPagina;
+		if (offset < 0)
+			offset = 0;
+		
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(persistenceClass);
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(totalPorPagina);
+		criteria.addOrder(Order.asc("id"));
+		
+		return criteria.list();
+	}
+	
+	@Override
+	public int quantidadePagina() throws Exception {
+		String sql = "SELECT COUNT(1) AS totalRegistro FROM " + persistenceClass.getSimpleName();
+		int quantidadePagina = 1;
+		int totalPorPagina = 6;
+		
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		Object resultSet = query.uniqueResult();
+		
+		if (resultSet != null) {
+			int totalRegistros = Integer.parseInt(resultSet.toString());
+			if (totalRegistros > totalPorPagina) {
+				double quantidadePaginaTemp = totalRegistros / totalPorPagina;
+				if (quantidadePaginaTemp % 2 != 0) {
+					quantidadePagina = (int) quantidadePaginaTemp + 1;
+				} else {
+					quantidadePagina = (int) quantidadePaginaTemp;
+				}
+			} else {
+				quantidadePagina = 1;
+			}
+		}
+		
+		return quantidadePagina;
 	}
 	
 	public SessionFactory getSessionFactory() {

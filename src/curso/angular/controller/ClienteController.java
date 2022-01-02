@@ -38,10 +38,16 @@ public class ClienteController extends ImplementacaoDao<Cliente> implements IDao
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "listar", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "listar/{numeroPagina}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public String lista() throws Exception {
-		return new Gson().toJson(super.listar());
+	public String lista(@PathVariable("numeroPagina") int numeroPagina) throws Exception {
+		return new Gson().toJson(super.consultaPaginada(numeroPagina));
+	}
+	
+	@RequestMapping(value = "totalPagina", method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public String totalPagina() throws Exception {
+		return new Gson().toJson(super.quantidadePagina());
 	}
 	
 	@RequestMapping(value = "deletar/{id}", method = RequestMethod.DELETE)
