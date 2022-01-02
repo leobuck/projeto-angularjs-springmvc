@@ -1,5 +1,6 @@
 package curso.angular.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ public class Cliente {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "cidades_fk")
 	private Cidades cidades;
+	@Column(columnDefinition = "text")
+	private String foto;
 
 	public Long getId() {
 		return id;
@@ -94,6 +97,22 @@ public class Cliente {
 	
 	public void setEstados(Estados estados) {
 		this.estados = estados;
+	}
+	
+	public Cidades getCidades() {
+		return cidades;
+	}
+	
+	public void setCidades(Cidades cidades) {
+		this.cidades = cidades;
+	}
+	
+	public String getFoto() {
+		return foto;
+	}
+	
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 	
 	@Override

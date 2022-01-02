@@ -20,6 +20,9 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		$http.get("cliente/buscarCliente/" + $routeParams.id).then(function(response) {
 			$scope.cliente = response.data;
 			
+			if ($scope.cliente.foto != undefined)
+				document.getElementById('imagemCliente').src = $scope.cliente.foto;
+			
 			setTimeout(function() {
 				$("#selectEstados").prop("selectedIndex", (new Number($scope.cliente.estados.id) + 1));
 				
@@ -44,8 +47,10 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 	}
 	
 	$scope.salvarCliente = function() {
+		$scope.cliente.foto = document.getElementById('imagemCliente').getAttribute('src');
 		$http.post("cliente/salvar", $scope.cliente).then(function(response) {
 			$scope.cliente = {};
+			document.getElementById('imagemCliente').src = '';
 			sucesso("Salvo com sucesso!");
 		}, function(response) {
 			erro("Erro: " + response.status);
@@ -120,7 +125,24 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 		}
 		return null;
 	}
+	
 }]);
+
+function visualizarImg() {
+	var preview = document.querySelectorAll('img').item(1);
+	var file = document.querySelector('input[type=file]').files[0];
+	var reader = new FileReader();
+	
+	reader.onloadend = function () {
+		preview.src = reader.result;
+	};
+	
+	if (file) {
+		reader.readAsDataURL(file);
+	} else {
+		preview.src = "";
+	}
+}
 
 app.run(function($rootScope) {
 	$rootScope.frutas = ['Banana', 'Melancia', 'Pera'];
