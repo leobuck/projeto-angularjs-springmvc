@@ -30,6 +30,7 @@ public class Cliente {
 	private Cidades cidades;
 	@Column(columnDefinition = "text")
 	private String foto;
+	private String cpf;
 
 	public Long getId() {
 		return id;
@@ -113,6 +114,14 @@ public class Cliente {
 	
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	@Override

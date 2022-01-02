@@ -105,11 +105,13 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 	};
 	
 	$scope.proximo = function() {
-		$scope.listarClientes($scope.numeroPagina + 1);
+		if ($scope.numeroPagina < $scope.totalPagina)
+			$scope.listarClientes($scope.numeroPagina + 1);
 	};
 	
 	$scope.anterior = function() {
-		$scope.listarClientes($scope.numeroPagina - 1);
+		if ($scope.numeroPagina > 1)
+			$scope.listarClientes($scope.numeroPagina - 1);
 	};
 	
 	function sucesso(msg) {
