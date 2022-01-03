@@ -8,6 +8,9 @@ app.config(function($routeProvider) {
 		.when("/clientelist", { controller: "clienteController", templateUrl: "cliente/list.html" })
 		.when("/clienteedit/:id", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
 		.when("/cliente/cadastro", { controller: "clienteController", templateUrl: "cliente/cadastro.html" })
+		.when("/fornecedorlist", { controller: "fornecedorController", templateUrl: "fornecedor/list.html" })
+		.when("/fornecedoredit/:id", { controller: "fornecedorController", templateUrl: "fornecedor/cadastro.html" })
+		.when("/fornecedor/cadastro", { controller: "fornecedorController", templateUrl: "fornecedor/cadastro.html" })
 		.otherwise({ redirectTo: "/" });
 });
 
@@ -114,36 +117,141 @@ app.controller('clienteController', ['$scope', '$http', '$location', '$routePara
 			$scope.listarClientes($scope.numeroPagina - 1);
 	};
 	
-	function sucesso(msg) {
-		$.notify({
-			message: msg
-		},
-		{
-			type: 'success',
-			timer: 1000
+}]);
+
+app.controller('fornecedorController', ['$scope', '$http', '$location', '$routeParams',
+	function($scope, $http, $location, $routeParams) {
+	
+	if ($routeParams.id != null && $routeParams.id != undefined && $routeParams.id != '') {
+		$scope.fornecedor = {'id': $routeParams.id};
+		
+		$http.get("fornecedor/buscarFornecedor/" + $routeParams.id).then(function(response) {
+			$scope.fornecedor = response.data;
+			
+			if ($scope.fornecedor.foto != undefined)
+				document.getElementById('imagemFornecedor').src = $scope.fornecedor.foto;
+			
+			setTimeout(function() {
+				$("#selectEstados").prop("selectedIndex", (new Number($scope.fornecedor.estados.id) + 1));
+				
+				$http.get("cidades/listar/" + $scope.fornecedor.estados.id).then(function(response) {
+					$scope.cidades = response.data;
+					setTimeout(function() {
+						$("#selectCidades").prop("selectedIndex", buscarKeyJson(response.data, 'id', $scope.fornecedor.cidades.id));		
+					}, 1000);
+				}, function(response) {
+					erro("Erro: " + response.status);
+				});
+			}, 1000);
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	} else {
+		$scope.fornecedor = {};
+	}
+	
+	$scope.editarFornecedor = function(id) {
+		$location.path("fornecedoredit/" + id);
+	}
+	
+	$scope.salvarFornecedor = function() {
+		$scope.fornecedor.foto = document.getElementById('imagemFornecedor').getAttribute('src');
+		$http.post("fornecedor/salvar", $scope.fornecedor).then(function(response) {
+			$scope.fornecedor = {};
+			document.getElementById('imagemFornecedor').src = '';
+			sucesso("Salvo com sucesso!");
+		}, function(response) {
+			erro("Erro: " + response.status);
 		});
 	}
 	
-	function erro(msg) {
-		$.notify({
-			message: msg
-		},
-		{
-			type: 'danger',
-			timer: 1000
+	$scope.listarFornecedores = function(numeroPagina) {
+		$scope.numeroPagina = numeroPagina;
+		$http.get("fornecedor/listar/" + numeroPagina).then(function(response) {
+			$scope.data = response.data;
+			
+			$http.get("fornecedor/totalPagina").then(function(response) {
+				$scope.totalPagina = response.data;
+			}, function(response) {
+				erro("Erro: " + response.status);
+			});
+		}, function(response) {
+			erro("Erro: " + response.status);
 		});
-	}
+	};
 	
-	function buscarKeyJson(obj, key, value) {
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i][key] == value) {
-				return i + 2;
-			}
-		}
-		return null;
-	}
+	$scope.removerFornecedor = function(id) {
+		$http.delete("fornecedor/deletar/" + id).then(function(response) {
+			$scope.listarFornecedores($scope.numeroPagina);
+			sucesso("Removido com sucesso!");
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.carregarEstados = function() {
+		$scope.estados = [{}];
+		$http.get("estados/listar").then(function(response) {
+			$scope.estados = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.carregarCidades = function() {
+		$scope.cidades = [{}];
+		$http.get("cidades/listar/" + $scope.fornecedor.estados.id).then(function(response) {
+			$scope.cidades = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.limparForm = function() {
+		$scope.fornecedor = {};
+		$scope.formFornecedor.$setPristine();
+	};
+	
+	$scope.proximo = function() {
+		if ($scope.numeroPagina < $scope.totalPagina)
+			$scope.listarFornecedores($scope.numeroPagina + 1);
+	};
+	
+	$scope.anterior = function() {
+		if ($scope.numeroPagina > 1)
+			$scope.listarFornecedores($scope.numeroPagina - 1);
+	};
 	
 }]);
+
+function sucesso(msg) {
+	$.notify({
+		message: msg
+	},
+	{
+		type: 'success',
+		timer: 1000
+	});
+}
+
+function erro(msg) {
+	$.notify({
+		message: msg
+	},
+	{
+		type: 'danger',
+		timer: 1000
+	});
+}
+
+function buscarKeyJson(obj, key, value) {
+	for (var i = 0; i < obj.length; i++) {
+		if (obj[i][key] == value) {
+			return i + 2;
+		}
+	}
+	return null;
+}
 
 function visualizarImg() {
 	var preview = document.querySelectorAll('img').item(1);

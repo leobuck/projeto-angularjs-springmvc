@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Cadastro de Fornecedores</h1>
+
+<a href="#fornecedorlist">
+	<img alt="Lista" src="resources/img/list-icon.png" border="0"> Lista de Fornecedores
+</a>
+
+<br/>
+<br/>
+
+<div class="col-lg-9 col-md-8" ng-init="carregarEstados();">
+	<div class="card">
+		<div class="content">
+			<form id="formFornecedor" name="formFornecedor" ng-submit="salvarFornecedor();">
+			
+				<div class="row">
+				
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Id</label>
+							<input type="text" ng-model="fornecedor.id" id="id" name="id" class="form-control border-input" disabled />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+				
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="razaoSocial">Razão Social</label>
+							<input type="text" ng-model="fornecedor.razaoSocial" id="razaoSocial" name="razaoSocial" class="form-control border-input" placeholder="Razão Social" required="required" />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+				
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="nomeFantasia">Nome Fantasia</label>
+							<input type="text" ng-model="fornecedor.nomeFantasia" id="nomeFantasia" name="nomeFantasia" class="form-control border-input" placeholder="Nome Fantasia" required="required" />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+				
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="endereco">Endereço</label>
+							<input type="text" ng-model="fornecedor.endereco" id="endereco" name="endereco" class="form-control border-input" placeholder="Endereço" required="required" />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="telefone">Telefone</label>
+							<input type="text" ng-model="fornecedor.telefone" id="telefone" name="telefone" class="form-control border-input" placeholder="Telefone" required="required" />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+				
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="cnpj">CNPJ</label>
+							<input type="text" ng-model="fornecedor.cnpj" id="cnpj" name="cnpj" class="form-control border-input" placeholder="CNPJ" required="required" />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="inscricaoEstadual">Inscrição Estadual</label>
+							<input type="text" ng-model="fornecedor.inscricaoEstadual" id="inscricaoEstadual" name="inscricaoEstadual" class="form-control border-input" placeholder="Inscrição Estadual" required="required" />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<img alt="Foto" id="imagemFornecedor" src="" style="width: 118px; height: 140px;" border="0">
+							<input type="file" id="file" onchange="javascript:visualizarImg();" />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="ativo">Ativo</label>
+							<input type="checkbox" ng-model="fornecedor.ativo" id="ativo" name="ativo" class="form-control border-input" />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+				
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="selectEstados">Estado</label>
+							<select id="selectEstados" name="estado" class="form-control border-input"
+								ng-model="fornecedor.estados.id"
+								ng-change="carregarCidades()">
+								<option value="">Selecione</option>
+								<option ng-repeat="estado in estados" value="{{estado.id}}">
+									{{estado.nome}}
+								</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="selectCidades">Cidade</label>
+							<select id="selectCidades" name="cidade" class="form-control border-input"
+								ng-model="fornecedor.cidades.id">
+								<option value="">Selecione</option>
+								<option ng-repeat="cidade in cidades" value="{{cidade.id}}">
+									{{cidade.nome}}
+								</option>
+							</select>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="text-center">
+					<button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+					<button type="button" class="btn btn-info btn-fill btn-wd" ng-click="limparForm();">Limpar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	$("#telefone").mask("(99) 9999-9999");
+	$("#cnpj").mask("99.999.999/9999-99");
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="loja">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Lista de Fornecedores</h1>
+
+<a href="#fornecedor/cadastro">
+	<img alt="Novo" src="resources/img/add-icon.png" border="0"> Novo Fornecedor
+</a>
+
+<br/>
+<br/>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="form-group">
+			<label for="filtro">Filtro</label>
+			<input type="text" id="filtro" name="filtro" ng-model="filtro" class="form-control border-input" />
+		</div>
+	</div>
+</div>
+
+
+<div ng-controller="fornecedorController" ng-init="listarFornecedores(1);">
+	<div class="content table-responsive table-full-width">
+		<table class="table table-hover">
+			<thead>
+				<th>#</th>
+				<th>Foto</th>
+				<th>Razão Social</th>
+				<th>CNPJ</th>
+				<th>Endereço</th>
+				<th>Telefone</th>
+				<th>Ações</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="fornecedor in data | filter: filtro">
+					<td>{{fornecedor.id}}</td>
+					<td><img src="{{fornecedor.foto}}" style="width: 40px; height: 40px;" /></td>
+					<td>{{fornecedor.razaoSocial}}</td>
+					<td>{{fornecedor.cnpj}}</td>
+					<td>{{fornecedor.endereco}}</td>
+					<td>{{fornecedor.telefone}}</td>
+					<td>
+						<a href ng-click="editarFornecedor(fornecedor.id);">
+							<img alt="Editar" src="resources/img/edit-icon.png" border="0"> Editar
+						</a>
+						<a href ng-click="removerFornecedor(fornecedor.id);">
+							<img alt="Remover" src="resources/img/delete-icon.png" border="0"> Remover
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div class="text-center">
+			<button type="button" class="btn btn-info btn-fill btn-wd" ng-click="anterior();">Anterior</button>
+			<button type="button" class="btn btn-info btn-fill btn-wd" ng-click="proximo();">Próximo</button>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
