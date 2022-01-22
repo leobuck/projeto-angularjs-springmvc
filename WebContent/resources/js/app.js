@@ -11,6 +11,9 @@ app.config(function($routeProvider) {
 		.when("/fornecedorlist", { controller: "fornecedorController", templateUrl: "fornecedor/list.html" })
 		.when("/fornecedoredit/:id", { controller: "fornecedorController", templateUrl: "fornecedor/cadastro.html" })
 		.when("/fornecedor/cadastro", { controller: "fornecedorController", templateUrl: "fornecedor/cadastro.html" })
+		.when("/livrolist", { controller: "livroController", templateUrl: "livro/list.html" })
+		.when("/livroedit/:id", { controller: "livroController", templateUrl: "livro/cadastro.html" })
+		.when("/livro/cadastro", { controller: "livroController", templateUrl: "livro/cadastro.html" })
 		.otherwise({ redirectTo: "/" });
 });
 
@@ -220,6 +223,98 @@ app.controller('fornecedorController', ['$scope', '$http', '$location', '$routeP
 	$scope.anterior = function() {
 		if ($scope.numeroPagina > 1)
 			$scope.listarFornecedores($scope.numeroPagina - 1);
+	};
+	
+}]);
+
+app.controller('livroController', ['$scope', '$http', '$location', '$routeParams',
+	function($scope, $http, $location, $routeParams) {
+	
+	if ($routeParams.id != null && $routeParams.id != undefined && $routeParams.id != '') {
+		$scope.livro = {'id': $routeParams.id};
+		
+		$http.get("livro/buscarLivro/" + $routeParams.id).then(function(response) {
+			$scope.livro = response.data;
+			
+			if ($scope.livro.foto != undefined)
+				document.getElementById('imagemLivro').src = $scope.livro.foto;
+			
+			$http.get("fornecedor/listartodos").then(function(response) {
+				$scope.fornecedores = response.data;
+				setTimeout(function() {
+					$("#selectFornecedores").prop("selectedIndex", buscarKeyJson(response.data, 'id', $scope.livro.fornecedor.id));		
+				}, 1000);
+			}, function(response) {
+				erro("Erro: " + response.status);
+			});
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	} else {
+		$scope.livro = {};
+	}
+	
+	$scope.editarLivro = function(id) {
+		$location.path("livroedit/" + id);
+	}
+	
+	$scope.salvarLivro = function() {
+		$scope.livro.foto = document.getElementById('imagemLivro').getAttribute('src');
+		$http.post("livro/salvar", $scope.livro).then(function(response) {
+			$scope.livro = {};
+			document.getElementById('imagemLivro').src = '';
+			sucesso("Salvo com sucesso!");
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	}
+	
+	$scope.listarLivros = function(numeroPagina) {
+		$scope.numeroPagina = numeroPagina;
+		$http.get("livro/listar/" + numeroPagina).then(function(response) {
+			$scope.data = response.data;
+			
+			$http.get("livro/totalPagina").then(function(response) {
+				$scope.totalPagina = response.data;
+			}, function(response) {
+				erro("Erro: " + response.status);
+			});
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.removerLivro = function(id) {
+		$http.delete("livro/deletar/" + id).then(function(response) {
+			$scope.listarLivros($scope.numeroPagina);
+			sucesso("Removido com sucesso!");
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.carregarFornecedores = function() {
+		$scope.fornecedores = [{}];
+		$http.get("fornecedor/listartodos").then(function(response) {
+			$scope.fornecedores = response.data;
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+	};
+	
+	$scope.limparForm = function() {
+		$scope.livro = {};
+		$scope.formLivro.$setPristine();
+	};
+	
+	$scope.proximo = function() {
+		if ($scope.numeroPagina < $scope.totalPagina)
+			$scope.listarLivros($scope.numeroPagina + 1);
+	};
+	
+	$scope.anterior = function() {
+		if ($scope.numeroPagina > 1)
+			$scope.listarLivros($scope.numeroPagina - 1);
 	};
 	
 }]);

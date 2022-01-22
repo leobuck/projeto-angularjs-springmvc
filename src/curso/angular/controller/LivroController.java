@@ -13,26 +13,22 @@ import com.google.gson.Gson;
 
 import curso.angular.dao.IDao;
 import curso.angular.dao.ImplementacaoDao;
-import curso.angular.model.Fornecedor;
+import curso.angular.model.Livro;
 
 @Controller
-@RequestMapping(value = "/fornecedor")
-public class FornecedorController extends ImplementacaoDao<Fornecedor> implements IDao<Fornecedor> {
+@RequestMapping(value = "/livro")
+public class LivroController extends ImplementacaoDao<Livro> implements IDao<Livro> {
 
-	public FornecedorController(Class<Fornecedor> persistenceClass) {
+	public LivroController(Class<Livro> persistenceClass) {
 		super(persistenceClass);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity salvar(@RequestBody String jsonFornecedor) throws Exception {
-		Fornecedor fornecedor = new Gson().fromJson(jsonFornecedor, Fornecedor.class);
-
-		if (fornecedor != null && fornecedor.getAtivo() == null)
-			fornecedor.setAtivo(false);
-
-		super.salvarOuAtualizar(fornecedor);
+	public ResponseEntity salvar(@RequestBody String jsonLivro) throws Exception {
+		Livro livro = new Gson().fromJson(jsonLivro, Livro.class);
+		super.salvarOuAtualizar(livro);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
@@ -41,34 +37,28 @@ public class FornecedorController extends ImplementacaoDao<Fornecedor> implement
 	public String lista(@PathVariable("numeroPagina") int numeroPagina) throws Exception {
 		return new Gson().toJson(super.consultaPaginada(numeroPagina));
 	}
-
+	
 	@RequestMapping(value = "totalPagina", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
 	public String totalPagina() throws Exception {
 		return new Gson().toJson(super.quantidadePagina());
 	}
-
+	
 	@RequestMapping(value = "deletar/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String deleta(@PathVariable("id") Long id) throws Exception {
-		Fornecedor fornecedor = new Fornecedor();
-		fornecedor.setId(id);
-		super.deletar(fornecedor);
+		Livro livro = new Livro();
+		livro.setId(id);
+		super.deletar(livro);
 		return "";
 	}
-
-	@RequestMapping(value = "buscarFornecedor/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public String buscarFornecedor(@PathVariable("id") Long id) throws Exception {
-		Fornecedor fornecedor = super.buscarPorId(id);
-		if (fornecedor == null)
-			return "{}";
-		return new Gson().toJson(fornecedor);
-	}
 	
-	@RequestMapping(value = "listartodos", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "buscarLivro/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String listartodos() throws Exception {
-		return new Gson().toJson(super.listar());
+	public String buscarLivro(@PathVariable("id") Long id) throws Exception {
+		Livro livro = super.buscarPorId(id);
+		if (livro == null)
+			return "{}";
+		return new Gson().toJson(livro);
 	}
 }
