@@ -25,7 +25,7 @@ public class Fornecedor {
 
 	private String cnpj;
 
-	private String inscricaoEstadual;
+	private Long inscricaoEstadual;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "estados_fk")
@@ -82,11 +82,11 @@ public class Fornecedor {
 		this.cnpj = cnpj;
 	}
 
-	public String getInscricaoEstadual() {
+	public Long getInscricaoEstadual() {
 		return inscricaoEstadual;
 	}
 
-	public void setInscricaoEstadual(String inscricaoEstadual) {
+	public void setInscricaoEstadual(Long inscricaoEstadual) {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
 

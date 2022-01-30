@@ -1,5 +1,7 @@
 package curso.angular.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,14 +21,15 @@ public class Livro {
 	private String titulo;
 	private String autor;
 	private String descricao;
-	private String isbn;
-	private String ano;
-	private String paginas;
+	private Long isbn;
+	private Long ano;
+	private Long paginas;
 	@Column(columnDefinition = "text")
 	private String foto;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fornecedor_fk")
 	private Fornecedor fornecedor;
+	private BigDecimal valor = BigDecimal.ZERO;
 
 	public Long getId() {
 		return id;
@@ -60,27 +63,27 @@ public class Livro {
 		this.descricao = descricao;
 	}
 
-	public String getIsbn() {
+	public Long getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(String isbn) {
+	public void setIsbn(Long isbn) {
 		this.isbn = isbn;
 	}
 
-	public String getAno() {
+	public Long getAno() {
 		return ano;
 	}
 
-	public void setAno(String ano) {
+	public void setAno(Long ano) {
 		this.ano = ano;
 	}
 
-	public String getPaginas() {
+	public Long getPaginas() {
 		return paginas;
 	}
 
-	public void setPaginas(String paginas) {
+	public void setPaginas(Long paginas) {
 		this.paginas = paginas;
 	}
 
@@ -98,6 +101,14 @@ public class Livro {
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 
 	@Override
