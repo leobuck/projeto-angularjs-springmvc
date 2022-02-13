@@ -15,6 +15,7 @@ app.config(function($routeProvider) {
 		.when("/livroedit/:id", { controller: "livroController", templateUrl: "livro/cadastro.html" })
 		.when("/livro/cadastro", { controller: "livroController", templateUrl: "livro/cadastro.html" })
 		.when("/loja/online", { controller: "lojaController", templateUrl: "loja/online.html" })
+		.when("/loja/itens/:itens", { controller: "lojaController", templateUrl: "loja/itens.html" })
 		.otherwise({ redirectTo: "/" });
 });
 
@@ -322,7 +323,20 @@ app.controller('livroController', ['$scope', '$http', '$location', '$routeParams
 
 app.controller('lojaController', ['$scope', '$http', '$location', '$routeParams',
 	function($scope, $http, $location, $routeParams) {
+
 	
+	if ($routeParams.itens != null && $routeParams.itens.length > 0) {
+		
+		$http.get("itempedido/processar/" + $routeParams.itens).then(function(response) {
+			
+		}, function(response) {
+			erro("Erro: " + response.status);
+		});
+			
+	} else {
+		$scope.carrinhoLivro = new Array();	
+	}
+		
 	$scope.listarLivros = function(numeroPagina) {
 		$scope.numeroPagina = numeroPagina;
 		$http.get("livro/listar/" + numeroPagina).then(function(response) {
@@ -347,7 +361,14 @@ app.controller('lojaController', ['$scope', '$http', '$location', '$routeParams'
 		if ($scope.numeroPagina > 1)
 			$scope.listarLivros($scope.numeroPagina - 1);
 	};
+
+	$scope.addLivro = function(livroId) {
+		$scope.carrinhoLivro.push(livroId);
+	};
 	
+	$scope.fecharPedido = function() {
+		$location.path('loja/itens/' + $scope.carrinhoLivro);
+	};
 }]);
 
 function sucesso(msg) {

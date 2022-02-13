@@ -7,6 +7,14 @@
 <body>
 <h1>Loja on-line de Livros</h1>
 
+<a ng-click="fecharPedido();">
+	<img alt="Carrinho" title="Carrinho de Livros" 
+		src="resources/img/carrinho.png" border="0" height="20px;" width="20px;">
+	{{carrinhoLivro.length}} Itens no Carrinho 
+</a>
+
+<br/><br/>
+
 <div class="col-lg-9 col-md-8" ng-init="listarLivros(1);">
 	<div class="card">
 		<div class="content">
@@ -20,7 +28,7 @@
 							<br/>
 							<label>R$ {{livro.valor}}</label>
 							<br/>
-							<button type="button" class="btn btn-info btn-fill btn-wd">Adicionar</button>
+							<button type="button" ng-click="addLivro(livro.id);" class="btn btn-info btn-fill btn-wd">Adicionar</button>
 						</div>
 					</div>
 				</div>
