@@ -15,6 +15,7 @@ public interface IDao<T> {
 	void salvarOuAtualizar(T objeto) throws Exception;
 	T merge(T objeto) throws Exception;
 	List<T> listar() throws Exception;
+	List<T> listar(String ids) throws Exception;
 	T buscarPorId(Long id) throws Exception;
 	List<T> consultaPaginada(int numeroPagina) throws Exception;
 	int quantidadePagina() throws Exception;

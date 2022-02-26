@@ -1,11 +1,13 @@
 package curso.angular.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +63,22 @@ public abstract class ImplementacaoDao<T> implements IDao<T> {
 	public List<T> listar() throws Exception {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(persistenceClass);
 		criteria.addOrder(Order.asc("id"));
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> listar(String ids) throws Exception {
+		List<Long> longs = new ArrayList<Long>();
+		
+		String [] strings = ids.split(",");
+		for (int i = 0; i < strings.length; i++) {
+			longs.add(Long.parseLong(strings[i]));
+		}
+		
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(persistenceClass);
+		criteria.add(Restrictions.in("id", longs));
+		
 		return criteria.list();
 	}
 	

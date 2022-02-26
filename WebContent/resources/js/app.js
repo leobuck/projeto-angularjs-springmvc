@@ -329,6 +329,9 @@ app.controller('lojaController', ['$scope', '$http', '$location', '$routeParams'
 		
 		$http.get("itempedido/processar/" + $routeParams.itens).then(function(response) {
 			
+			$scope.itensCarrinho = response.data;
+			$scope.pedidoObjeto = response.data[0].pedido; 
+			
 		}, function(response) {
 			erro("Erro: " + response.status);
 		});

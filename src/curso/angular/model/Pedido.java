@@ -1,5 +1,7 @@
 package curso.angular.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,7 @@ public class Pedido {
 	@ForeignKey(name = "cliente_fk")
 	private Cliente cliente;
 	
-	private String valorTotal;
+	private BigDecimal valorTotal;
 
 	public Long getId() {
 		return id;
@@ -37,11 +39,11 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public String getValorTotal() {
+	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
 
-	public void setValorTotal(String valorTotal) {
+	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 
